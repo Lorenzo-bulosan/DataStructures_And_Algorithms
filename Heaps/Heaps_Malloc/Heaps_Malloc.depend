@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1559078335 source:c:\users\loren\desktop\programing courses\algorithms and data structures\heaps\heaps_malloc\main.c
+	<stdio.h>
+	<stdlib.h>
+
