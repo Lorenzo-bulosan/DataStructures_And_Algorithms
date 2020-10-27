@@ -20,8 +20,8 @@ def addTwoHugeNumbers(a, b):
         
         num1str = num1str + strA           
         a = a.next
-        #traverse linkedlist and complete full form 
-    
+        
+    #traverse linkedlist and complete full form 
     while(b):
         strB = str(b.value)
         
