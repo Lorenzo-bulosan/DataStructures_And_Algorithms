@@ -16,16 +16,29 @@ def mergeTwoLinkedLists(l1, l2):
     
     mergedList = []
     
-    while(l1):
+    while(True):
         
-        if(l1.value < l2.value):
-            mergedList.append(l1.value)
-            print(mergedList)
-            l1 = l1.next
-        else:
+        # no more elements on both lists
+        if(l1==None and l2==None):
+            break
+        
+        # l1 exausted
+        if(l1==None and l2!=None):
             mergedList.append(l2.value)
-            print(mergedList)
             l2 = l2.next
-    
-            
+
+        # l2 exausted
+        elif(l2==None and l1!=None):
+            mergedList.append(l1.value)
+            l1 = l1.next     
+        
+        # both list still contain elements
+        else:    
+            if(l1.value < l2.value):
+                mergedList.append(l1.value)
+                l1 = l1.next
+            else:
+                mergedList.append(l2.value)
+                l2 = l2.next
+      
     return mergedList
