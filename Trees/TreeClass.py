@@ -54,8 +54,48 @@ class BinarySearchTree():
         current = self.root
         self.recursiveInsert(current,a)
                 
-            
+    def search(self,a):
+        # check if empty tree
+        if(self.root==None):
+            print('empty tree')
+            return self   
         
+        # check the root node
+        if(a == self.root.value):
+            print('found at root')
+            return a
+        
+        else:
+            current = self.root
+            
+            while(True):
+            
+                #check right children
+                if(a>current.right):
+                    print('checking right nodes')
+                    if(current.right==None):
+                        print('no right node, value not found')
+                        return self
+                    elif(current.right==a):
+                        print('found the node')
+                        return a
+                    else:
+                        print('node not found check next generation')
+                        current = current.right
+                #check left children
+                else:
+                    print('checking left nodes')
+                    if(current.left==None):
+                        print('no left node, value not found')
+                        return self
+                    elif(current.left==a):
+                        print('found the node')
+                        return a
+                    else:
+                        print('node not found check next generation')
+                        current = current.left
+                    
+            
 
 #%% Basic test
 tree = BinarySearchTree()
