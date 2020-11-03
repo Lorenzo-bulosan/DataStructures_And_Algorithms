@@ -69,18 +69,20 @@ class BinarySearchTree():
             current = self.root
             
             while(True):
-            
+                
+                print('comparing',a,'to',current.value)
+                
                 #check right children
-                if(a>current.right):
+                if(a>current.value):
                     print('checking right nodes')
                     if(current.right==None):
                         print('no right node, value not found')
                         return self
-                    elif(current.right==a):
+                    elif(current.right.value==a):
                         print('found the node')
                         return a
                     else:
-                        print('node not found check next generation')
+                        print('node is',current.right.value,'check next generation')
                         current = current.right
                 #check left children
                 else:
@@ -88,11 +90,11 @@ class BinarySearchTree():
                     if(current.left==None):
                         print('no left node, value not found')
                         return self
-                    elif(current.left==a):
+                    elif(current.left.value==a):
                         print('found the node')
                         return a
                     else:
-                        print('node not found check next generation')
+                        print('node is',current.left.value,'check next generation')
                         current = current.left
                     
             
@@ -120,3 +122,12 @@ for i in numToInsert:
     print('inserting: ', i)
     out.insert(i)
     print('\n')
+
+#%% Testing search method, run above section first
+valueToFind = 20
+out = tree.search(valueToFind)
+print('\n')
+
+valueToFind = 999
+out = tree.search(valueToFind)
+print('\n')
