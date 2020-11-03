@@ -15,6 +15,11 @@ class BinarySearchTree():
         
         print('Comparing', a,'to', current.value)
         
+        #edge case: duplicate value
+        if(a==current.value): 
+            print('This is a duplicate value')
+            return self
+        
         if(a>current.value):
             #check if there's already a node
             print('inserting to the right')
@@ -70,7 +75,7 @@ out = tree.insert(a)
 print('\n')
 
 # test inserting to existing tree
-numToInsert = [7, 15, 0, 20]
+numToInsert = [7, 15, 0, 20, 0]
 for i in numToInsert:
     print('inserting: ', i)
     out.insert(i)
