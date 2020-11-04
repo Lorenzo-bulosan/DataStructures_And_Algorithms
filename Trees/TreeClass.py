@@ -117,7 +117,7 @@ out = tree.insert(a)
 print('\n')
 
 # test inserting to existing tree
-numToInsert = [7, 15, 0, 20, 0]
+numToInsert = [7, -10, 6.5, 0, 20, 0]
 for i in numToInsert:
     print('inserting: ', i)
     out.insert(i)
