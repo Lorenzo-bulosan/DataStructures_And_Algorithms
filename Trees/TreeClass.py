@@ -97,7 +97,42 @@ class BinarySearchTree():
                         print('node is',current.left.value,'check next generation')
                         current = current.left
                     
+    def traverseBFS(self):
+        
+        #queues
+        nodesToVisit = []
+        listToReturn = []
+        
+        #edge case empty tree
+        if(self.root == None):
+            print('Empty list')
+            return self
+        
+        #BFS
+        nodesToVisit.append(self.root)
+        print('adding:',self.root.value)
+        
+        while(nodesToVisit):
             
+            #dequeue and store in list to return
+            current = nodesToVisit.pop(0)
+            listToReturn.append(current.value)
+            print('removing value:',current.value)
+            
+            #check child nodes and add to visit list
+            if(current.left): 
+                print('adding:',current.left.value)
+                nodesToVisit.append(current.left)
+            
+            if(current.right): 
+                print('adding:',current.right.value)
+                nodesToVisit.append(current.right)
+            
+        return listToReturn
+        
+        
+        
+        
 
 #%% Basic test
 tree = BinarySearchTree()
@@ -116,11 +151,12 @@ print('inserting: ', a)
 out = tree.insert(a)
 print('\n')
 
-# test inserting to existing tree
-numToInsert = [7, -10, 6.5, 0, 20, 0]
+#%% test inserting to existing tree
+tree = BinarySearchTree()
+numToInsert = [10,5,7,20,8,0] #numToInsert = [7, -10, 6.5, 0, 20, 0]
 for i in numToInsert:
     print('inserting: ', i)
-    out.insert(i)
+    tree.insert(i)
     print('\n')
 
 #%% Testing search method, run above section first
@@ -131,3 +167,14 @@ print('\n')
 valueToFind = 999
 out = tree.search(valueToFind)
 print('\n')
+
+#%% Testing BFS traversal
+
+test = tree.traverseBFS()
+
+## if returning list of nodes
+#for i in test:
+#    print(i.value)
+
+# returning list of values
+print(test)
