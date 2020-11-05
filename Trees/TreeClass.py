@@ -168,6 +168,37 @@ class BinarySearchTree():
         
         return listToReturn
         
+    def traverseDFS_postOrder(self):
+        
+        # recursive helper function
+        def traverse(current):
+            
+            if(current.left):
+                print('left node exist')
+                traverse(current.left)
+                
+            if(current.right):
+                print('right node exist')
+                traverse(current.right)
+                
+            print('adding:',current.value)
+            listToReturn.append(current.value)
+                
+            return
+        
+        #variables needed
+        listToReturn = []
+        current = self.root
+        
+        #edge case empty tree
+        if(self.root == None):
+            print('Empty list')
+            return self
+        
+        #call recursive function
+        traverse(current)
+        
+        return listToReturn
 
 #%% Basic test
 tree = BinarySearchTree()
