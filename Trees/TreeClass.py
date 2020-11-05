@@ -173,8 +173,8 @@ print('\n')
 test = tree.traverseBFS()
 
 ## if returning list of nodes
-#for i in test:
-#    print(i.value)
+for i in test:
+    print(i.value)
 
-# returning list of values
+#returning list of values
 print(test)
