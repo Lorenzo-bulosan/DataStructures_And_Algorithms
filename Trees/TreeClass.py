@@ -140,12 +140,16 @@ class BinarySearchTree():
         
         # recursive helper function
         def traverse(current):
+            
+            print('adding:',current.value)
             listToReturn.append(current.value)
             
             if(current.left):
+                print('left node exist')
                 traverse(current.left)
                 
             if(current.right):
+                print('right node exist')
                 traverse(current.right)
                 
             return
@@ -184,7 +188,9 @@ print('\n')
 
 #%% test inserting to existing tree
 tree = BinarySearchTree()
-numToInsert = [10,5,7,20,8,0] #numToInsert = [7, -10, 6.5, 0, 20, 0]
+numToInsert = [10,5,15,0,8,12,20] 
+#numToInsert = [7, -10, 6.5, 0, 20, 0]
+
 for i in numToInsert:
     print('inserting: ', i)
     tree.insert(i)
@@ -197,10 +203,10 @@ print('\n')
 
 valueToFind = 999
 out = tree.search(valueToFind)
-print('\n')
+
 
 #%% Testing BFS traversal
-
+print('Breath First Search')
 test = tree.traverseBFS()
 
 ## if returning list of nodes
@@ -208,11 +214,13 @@ test = tree.traverseBFS()
 #    print(i.value)
 
 #returning list of values
+print('\n')
 print(test)
 
 #%% Testing DFS preOrder
-
+print('\nDepth First Search: pre-Order')
 test = tree.traverseDFS_preOrder()
+print('\n')
 print(test)
 
 
