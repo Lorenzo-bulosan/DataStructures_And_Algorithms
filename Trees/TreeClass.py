@@ -136,7 +136,33 @@ class BinarySearchTree():
                
         return listToReturn
         
-
+    def traverseDFS_preOrder(self):
+        
+        # recursive helper function
+        def traverse(current):
+            listToReturn.append(current.value)
+            
+            if(current.left):
+                traverse(current.left)
+                
+            if(current.right):
+                traverse(current.right)
+                
+            return
+        
+        #variables needed
+        listToReturn = []
+        current = self.root
+        
+        #edge case empty tree
+        if(self.root == None):
+            print('Empty list')
+            return self
+        
+        #call recursive function
+        traverse(current)
+        
+        return listToReturn
         
 
 #%% Basic test
@@ -183,3 +209,10 @@ test = tree.traverseBFS()
 
 #returning list of values
 print(test)
+
+#%% Testing DFS preOrder
+
+test = tree.traverseDFS_preOrder()
+print(test)
+
+
