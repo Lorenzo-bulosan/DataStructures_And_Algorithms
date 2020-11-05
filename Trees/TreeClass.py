@@ -254,4 +254,9 @@ test = tree.traverseDFS_preOrder()
 print('\n')
 print(test)
 
+#%% Testing DFS preOrder
+print('\nDepth First Search: post-Order')
+test = tree.traverseDFS_postOrder()
+print('\n')
+print(test)
 
