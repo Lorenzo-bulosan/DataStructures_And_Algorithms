@@ -27,16 +27,19 @@ class BinarySearchTree():
                 print('no right node, inserting now')
                 current.right = Node(a)
                 return self
+            
             else:
                 print('already existing node, repeat')
                 current = current.right
                 self.recursiveInsert(current,a)
+                
         else:
             print('inserting to the left')
             if(current.left==None):
                 print('no left node, inserting now')
                 current.left = Node(a)
                 return self
+            
             else:
                 print('already existing node, repeat')
                 current = current.left
@@ -67,32 +70,35 @@ class BinarySearchTree():
         
         else:
             current = self.root
-            
             while(True):
-                
-                print('comparing',a,'to',current.value)
-                
+                print('comparing',a,'to',current.value)  
                 #check right children
                 if(a>current.value):
                     print('checking right nodes')
+                    
                     if(current.right==None):
                         print('no right node, value not found')
                         return self
+                    
                     elif(current.right.value==a):
                         print('found the node')
                         return a
+                    
                     else:
                         print('node is',current.right.value,'check next generation')
                         current = current.right
                 #check left children
                 else:
                     print('checking left nodes')
+                    
                     if(current.left==None):
                         print('no left node, value not found')
                         return self
+                    
                     elif(current.left.value==a):
                         print('found the node')
                         return a
+                    
                     else:
                         print('node is',current.left.value,'check next generation')
                         current = current.left
@@ -116,7 +122,7 @@ class BinarySearchTree():
             
             #dequeue and store in list to return
             current = nodesToVisit.pop(0)
-            listToReturn.append(current.value)
+            listToReturn.append(current.value) #returning value instead of list of nodes
             print('removing value:',current.value)
             
             #check child nodes and add to visit list
@@ -127,11 +133,10 @@ class BinarySearchTree():
             if(current.right): 
                 print('adding:',current.right.value)
                 nodesToVisit.append(current.right)
-            
+               
         return listToReturn
         
-        
-        
+
         
 
 #%% Basic test
@@ -173,8 +178,8 @@ print('\n')
 test = tree.traverseBFS()
 
 ## if returning list of nodes
-for i in test:
-    print(i.value)
+#for i in test:
+#    print(i.value)
 
 #returning list of values
 print(test)
