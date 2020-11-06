@@ -33,37 +33,62 @@ def hasPathWithGivenSum(t, s):
     sumToFind = s
     totalSum = 0
     
-    #edge case empty tree
-    if(t == None):
-        print('Empty list')
+    #edge case: empty inputs
+    if(current==None or sumToFind==None ):
         return False
-    
+     
     #call recursive function
     return traverse(current,sumToFind,totalSum)
 
-#%% Creating tree to test
+#%% Unit Testing
+    
+#create binary tree for testing
 from Trees import *
 tree = BinarySearchTree()
 numToInsert = [10,5,15,0,8,12,20] 
-#numToInsert = [7, -10, 6.5, 0, 20, 0]
 
+#populate binary tree
 for i in numToInsert:
     print('inserting: ', i)
     tree.insert(i)
     print('\n')
 
-# Testing function
-sumToFind = 38
-out = hasPathWithGivenSum(tree.root, sumToFind)            
-print(out)
+#unit test 1--------------------------------
+'''correct answer: True'''
+sumToFind = 45
+out = hasPathWithGivenSum(tree.root, sumToFind)      
+if(out):
+    print('test 1 passed')
+else:
+    print('failed to find path')        
             
+#unit test 2--------------------------------
+'''correct answer: False'''
+sumToFind = 13
+out = hasPathWithGivenSum(tree.root, sumToFind)      
+if(not out):
+    print('test 2 passed')
+else:
+    print('found a path but no path with given sum exist')   
             
-            
-            
-            
-            
-            
-            
+
+#unit test 3--------------------------------
+'''correct answer: False'''
+sumToFind = 13
+out = hasPathWithGivenSum(None, sumToFind)      
+if(not out):
+    print('test 3 passed')
+else:
+    print('failed to identify empty tree')           
+
+#unit test 4--------------------------------
+'''correct answer: False'''
+sumToFind = None
+out = hasPathWithGivenSum(tree.root, sumToFind)      
+if(not out):
+    print('test 4 passed')
+else:
+    print('failed to identify incorrect given sum')  
             
             
             
