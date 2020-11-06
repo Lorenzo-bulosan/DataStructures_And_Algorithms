@@ -56,6 +56,7 @@ class BinarySearchTree():
         #decide to look left/right and check if theres a node 
         current = self.root
         self.recursiveInsert(current,a)
+        return current
                 
     def search(self,a):
         # check if empty tree
