@@ -1,9 +1,7 @@
-#%% passes only 7/8 test
 def hasPathWithGivenSum(t, s):
     '''input:node, sum to find
     returns bool
     '''
-
     # recursive helper function
     def traverse(current,sumToFind,totalSum):
         '''input: node, sum to find, total sum
