@@ -1,40 +1,45 @@
-
 #%% passes only 7/8 test
-def hasPathWithGivenSum2(t, s):
+def hasPathWithGivenSum(t, s):
+    '''input:node, sum to find
+    returns bool
+    '''
 
-    def traverseAndSum(current,s,currentSum):
+    # recursive helper function
+    def traverse(current,sumToFind,totalSum):
+        '''input: node, sum to find, total sum
+        returns bool
+        '''
+        # add to current sum
+        totalSum = totalSum+current.value
         
-        print('current sum:',currentSum,'node value:',current.value)
-        currentSum = currentSum+current.value
-        print('total',currentSum)
-        
-        # check if leaf node
+        #check if leaf node and return if target sum
         if(current.left==None and current.right==None):
-            print('leaf node')
-            # check sum
-            if(s==currentSum): 
-                print('found path')
-                return True
-
-        #check left path
-        elif(current.left):
-            print('checking left')
-            return traverseAndSum(current.left,s,currentSum)
-                 
-        #check right path
-        elif(current.right):
-            print('checking right')
-            return  traverseAndSum(current.right,s,currentSum)
-              
-        return False
+            if(totalSum==sumToFind): return True
+                
+        #not leaf node check left pathway
+        if(current.left):
+            out = traverse(current.left,sumToFind,totalSum)
+            if(out): return True #stop the recursion if path found
         
-    # check for empty tree
-    if(t):
-        # call recursive helper function and return output
-        currentSum = 0
-        return traverseAndSum(t,s,currentSum)
-    else:
+        #not leaf node check right pathway
+        if(current.right):
+            out = traverse(current.right,sumToFind,totalSum)
+            if(out): return True #stop the recursion if path found
+        
         return False
+    
+    #renaming for readability
+    current = t
+    sumToFind = s
+    totalSum = 0
+    
+    #edge case empty tree
+    if(t == None):
+        print('Empty list')
+        return False
+    
+    #call recursive function
+    return traverse(current,sumToFind,totalSum)
 
 #%% Creating tree to test
 from Trees import *
@@ -48,7 +53,7 @@ for i in numToInsert:
     print('\n')
 
 # Testing function
-sumToFind = 15
+sumToFind = 38
 out = hasPathWithGivenSum(tree.root, sumToFind)            
 print(out)
             
