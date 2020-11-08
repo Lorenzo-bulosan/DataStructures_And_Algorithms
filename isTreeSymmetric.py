@@ -40,3 +40,25 @@ def isTreeSymmetric(t):
     
     return False
 
+#%% Alternative solution without using list as memory
+def isTreeSymmetric2(t):
+     
+    #check simultaneously both childs
+    def check(left,right):
+        
+        if(left.value!=right.value):
+            return False
+        
+        if(left.left.value!=right.right.value):
+            return False
+        
+        if(left.right.value!=right.left.value):
+            return False
+        
+        check(left.left,left.right)
+        check(right.left,right.right)
+        
+        return True
+    
+    
+    return check(t.left,t.right)
