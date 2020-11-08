@@ -62,3 +62,17 @@ def isTreeSymmetric2(t):
     
     
     return check(t.left,t.right)
+
+#%% create binary tree for testing
+from Trees import *
+tree = BinarySearchTree()
+numToInsert = [10,5,15,0,8,12,20] 
+
+#populate binary tree
+for i in numToInsert:
+    print('inserting: ', i)
+    tree.insert(i)
+    print('\n')
+    
+#unit test 1--------------------------------
+'''correct answer: False'''
