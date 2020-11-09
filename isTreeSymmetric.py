@@ -74,7 +74,7 @@ def isTreeSymmetric(t):
 
 #%% create binary tree for testing
 from Trees import *
-tree = BinarySearchTree()
+tree1 = BinarySearchTree()
 numToInsert = [10,5,15,0,8,12,20] 
 
 #populate binary tree
@@ -83,3 +83,27 @@ for i in numToInsert:
     tree.insert(i)
     print('\n')
     
+#unit test 1--------------------------------
+'''correct answer: False'''
+if(isTreeSymmetric(tree1.root)==False):
+    print('Passed')
+else:
+    print('Failed to identify incorrect symmetry')
+    
+#%% create binary tree for testing
+from Trees import *
+tree2 = BinarySearchTree()
+numToInsert = [10] 
+
+#populate binary tree
+for i in numToInsert:
+    print('inserting: ', i)
+    tree.insert(i)
+    print('\n')
+    
+#unit test 2--------------------------------
+'''correct answer: False'''
+if(isTreeSymmetric(tree2.root)==True):
+    print('Passed')
+else:
+    print('Failed to identify incorrect symmetry')
