@@ -1,4 +1,4 @@
-def isTreeSymmetric(t):
+def isTreeSymmetric2(t):
      
     def DFSinOrder(current):
         
@@ -41,27 +41,36 @@ def isTreeSymmetric(t):
     return False
 
 #%% Alternative solution without using list as memory
-def isTreeSymmetric2(t):
+def isTreeSymmetric(t):
      
-    #check simultaneously both childs
-    def check(left,right):
+    def checkSubTree(subLeft,subRight):
+           
+        # check if leaf node
+        if(subLeft==None and subRight==None):
+            return True
         
-        if(left.value!=right.value):
-            return False
+        #check that both exist
+        elif(subLeft!=None and subRight!=None):
+            
+            #value check and recursion
+            return subLeft.value==subRight.value and \
+                   checkSubTree(subLeft.left,subRight.right) and \
+                   checkSubTree(subLeft.right, subRight.left)
+       
+        return False        
+    
+        # alternative way of re-writting
         
-        if(left.left.value!=right.right.value):
-            return False
+        #    if(subLeft.value==subright.value):
+        #        if(checkSubTree(subLeft.left,subright.right)):
+        #            if(checkSubTree(subLeft.right,subright.left)):
+        #                return True
         
-        if(left.right.value!=right.left.value):
-            return False
-        
-        check(left.left,left.right)
-        check(right.left,right.right)
-        
+    # check root isEmpty
+    if(t == None):
         return True
     
-    
-    return check(t.left,t.right)
+    return checkSubTree(t.left,t.right)
 
 #%% create binary tree for testing
 from Trees import *
@@ -76,3 +85,7 @@ for i in numToInsert:
     
 #unit test 1--------------------------------
 '''correct answer: False'''
+if(isTreeSymmetric(tree.root)==False):
+    print('Passed')
+else:
+    print('Failed to identify incorrect symmetry')
