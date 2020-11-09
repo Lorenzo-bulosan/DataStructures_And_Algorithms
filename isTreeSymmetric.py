@@ -83,9 +83,3 @@ for i in numToInsert:
     tree.insert(i)
     print('\n')
     
-#unit test 1--------------------------------
-'''correct answer: False'''
-if(isTreeSymmetric(tree.root)==False):
-    print('Passed')
-else:
-    print('Failed to identify incorrect symmetry')
