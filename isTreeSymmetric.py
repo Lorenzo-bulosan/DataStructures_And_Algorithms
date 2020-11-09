@@ -73,37 +73,56 @@ def isTreeSymmetric(t):
     return checkSubTree(t.left,t.right)
 
 #%% create binary tree for testing
+print('Conducting Test 1')
+print('creating test tree')
 from Trees import *
 tree1 = BinarySearchTree()
 numToInsert = [10,5,15,0,8,12,20] 
 
 #populate binary tree
 for i in numToInsert:
-    print('inserting: ', i)
-    tree.insert(i)
-    print('\n')
+    tree1.insert(i)
     
 #unit test 1--------------------------------
 '''correct answer: False'''
 if(isTreeSymmetric(tree1.root)==False):
-    print('Passed')
+    print('Test 1 Passed')
 else:
     print('Failed to identify incorrect symmetry')
+
+print('Test 1 finished\n')
     
 #%% create binary tree for testing
+print('Conducting Test 2')
+print('creating test tree')
 from Trees import *
 tree2 = BinarySearchTree()
 numToInsert = [10] 
 
 #populate binary tree
 for i in numToInsert:
-    print('inserting: ', i)
-    tree.insert(i)
-    print('\n')
-    
+    tree2.insert(i)
+
 #unit test 2--------------------------------
-'''correct answer: False'''
+'''correct answer: True'''
 if(isTreeSymmetric(tree2.root)==True):
-    print('Passed')
+    print('Test 2 Passed')
 else:
-    print('Failed to identify incorrect symmetry')
+    print('Failed to identify tree with only one node')
+
+print('Test 2 finished\n')
+
+#%% create binary tree for testing
+print('Conducting Test 3')
+print('creating test tree')
+
+tree3 = None
+ 
+#unit test 3--------------------------------
+'''correct answer: True'''
+if(isTreeSymmetric(tree3)==True):
+    print('Test 3 Passed')
+else:
+    print('Failed to identify tree with only one node')
+
+print('Test 3 finished\n')
