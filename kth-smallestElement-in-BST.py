@@ -17,9 +17,12 @@ def kthSmallestInBST(t, k):
     
     # ordered values from the tree
     listInOrder = []
-    DFSinOrder(t)
     
-    return listInOrder[k-1]
+    if(k and t):
+        DFSinOrder(t)
+        return listInOrder[k-1]
+    
+    return False
 
 #%% create binary tree for testing
 print('Conducting Test 1')
@@ -45,3 +48,17 @@ else:
     print('Failed to identify correct answer')
 
 print('Test 1 finished\n')
+
+#unit test 2--------------------------------
+print('\nConducting Test 2')
+correct = False
+pos = None
+t = None
+
+if(kthSmallestInBST(t,pos)==correct):
+    print('Test 2 Passed')
+else:
+    print('The wrong answer:',kthSmallestInBST(t,pos))
+    print('Failed to identify correct answer')
+
+print('Test 2 finished\n')
