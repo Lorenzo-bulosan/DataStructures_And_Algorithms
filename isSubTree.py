@@ -5,26 +5,24 @@
 #     self.value = x
 #     self.left = None
 #     self.right = None
-def isSubtree(t1, t2):
+
+def parallelCheck(t1,t2):
     
-    def parallelCheck(t1,t2):
+    #stop if no input
+    if(t1==None and t2==None):
+        return True
         
-        #stop as soon as not the same
-        if(t1.value!=t2.value):
-            return False
-        else:
-            # reaches leaf node
-            if(t1.left==None and t1.right==None and t2.left==None and t2.right==None):
-                if(t1.value==t2.value):
-                    return True
-            
-            if(t1.left!=None and t2.left!=None):
-                parallelCheck(t1.left,t2.left)
-                
-            if(t1.right!=None and t2.right!=None):
-                parallelCheck(t1.right,t2.right)           
-                
-        return
+    #stop if any missing
+    if(t1==None or t2==None):
+        return False
+    
+    #continue only if same
+    if(t1.value==t2.value):
+        return parallelCheck(t1.left,t2.left) and parallelCheck(t1.right,t2.right)
+
+    return False
+
+def isSubtree(t1, t2):
     
     #edge case: empty t2
     if(t2==None):
@@ -34,19 +32,5 @@ def isSubtree(t1, t2):
     if(t1==None):
         return False
     
-    #return true only in these cases
-    if(t1==t2):
-        return True
-        
-    checkLeft = parallelCheck(t1.left,t2)
-    if(checkLeft==True):
-        return True
-        
-    checkRight = parallelCheck(t1.right,t2)
-    if(checkRight==True):
-        return True
-    
-    return False
-    
-    
-return
+    #return true only in these cases 
+    return parallelCheck(t1,t2) or isSubtree(t1.left,t2) or isSubtree(t1.right,t2)
