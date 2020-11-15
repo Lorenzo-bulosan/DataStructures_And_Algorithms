@@ -7,96 +7,46 @@
 #     self.right = None
 def isSubtree(t1, t2):
     
-    def DFSpreOrderParallelCheck(tree1,tree2):
+    def parallelCheck(t1,t2):
         
-        print([tree1.value,tree2.value])
-        
-        # exit as soon as not the same
-        if(tree1.value!=tree2.value): 
-            print('not same value, exiting')
+        #stop as soon as not the same
+        if(t1.value!=t2.value):
             return False
-        
-        # if same value check the rest of the tree
         else:
-            
-            if(tree1.left==None and tree1.right==None and tree2.left==None and tree2.right==None):
-                print('reached leaf node')
-                if(tree1.value==tree2.value):
-                    print('same value')
+            # reaches leaf node
+            if(t1.left==None and t1.right==None and t2.left==None and t2.right==None):
+                if(t1.value==t2.value):
                     return True
-                else:
-                    print('leaf node but not same value')
-                    return False
             
-            if(tree1.left!=None and tree2.left!=None):
-                DFSpreOrderParallelCheck(tree1.left,tree2.left)
-                        
-            if(tree1.right!=None and tree2.right!=None):
-                DFSpreOrderParallelCheck(tree1.right,tree2.right)        
-            
-            return True
-
-    def DFSpreOrder(tree1,tree2):
-        
-        print('cheking first tree:',tree1.value,tree2.value)
-        
-        result = False
-        
-        if(tree1.value==tree2.value):
-            result = DFSpreOrderParallelCheck(tree1,tree2)
-            print('Found subree',result)
-            return result
+            if(t1.left!=None and t2.left!=None):
+                parallelCheck(t1.left,t2.left)
+                
+            if(t1.right!=None and t2.right!=None):
+                parallelCheck(t1.right,t2.right)           
+                
+        return
     
-        #check left
-        print('checking left')
-        if(tree1.left!=None and result==False):
-            result = DFSpreOrder(tree1.left,tree2)
-#            if(result==True):
-#                return True
-#            else:
-#                return False
+    #edge case: empty t2
+    if(t2==None):
+        return True
         
-        #check right
-        print('checking right')
-        if(tree1.right!=None and result==False):
-            result = DFSpreOrder(tree1.right,tree2)
-#            if(result==True):
-#                return True
-#            else:
-#                return False
-         
-        return result  
-        
-    #edge case: t1 empty
-    if(t1==None and t2!=None):
+    #edge case: nothing to compare with
+    if(t1==None):
         return False
     
-    #edge case: t2 empty
-    if(t2==None and t1!=None):
+    #return true only in these cases
+    if(t1==t2):
+        return True
+        
+    checkLeft = parallelCheck(t1.left,t2)
+    if(checkLeft==True):
+        return True
+        
+    checkRight = parallelCheck(t1.right,t2)
+    if(checkRight==True):
         return True
     
-    #edge case: both inputs emtpy
-    if(t1==None and t2==None):
-        return True
+    return False
     
     
-    return DFSpreOrder(t1,t2)
-
-#%% create binary tree for testing
-print('creating test tree')
-from Trees import TreeClass
-
-#populate binary tree
-tree1 = BinarySearchTree()
-numToInsert1 = [10,5,15,0,8,12,20] 
-for i in numToInsert1:
-    tree1.insert(i)
-    
-#populate binary tree
-tree2 = BinarySearchTree()
-numToInsert2 = [5,842]
-for i in numToInsert2:
-    tree2.insert(i)
-
-#%% Testing function manually
-print(isSubtree(tree1.root,tree2.root))
+return
