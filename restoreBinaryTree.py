@@ -24,13 +24,16 @@ def restoreBinaryTree(inorder, preorder):
         '''
         # check for boundaries on the indexs
         if(startIdxPreOrder >= len(inOrderList)):
+            print('exit 1')
             return None
         
         if(startIdxInOrder > endIdxInOrder):
+            print('exit 2')
             return None
         
         # check empty lookup list
         if(not inOrderList[startIdxInOrder:endIdxInOrder]):
+            print('exit 3',[startIdxInOrder,endIdxInOrder])
             return None
      
         # set head as the next in the list postOrder
@@ -39,16 +42,16 @@ def restoreBinaryTree(inorder, preorder):
         print('head is:',head)
         
         # find head index inside inOrderList within given range
-        print('looking inside:',[startIdxInOrder,endIdxInOrder],inOrderList[startIdxInOrder:endIdxInOrder])
+        print('looking between:',[startIdxInOrder,endIdxInOrder],'resulting in:',inOrderList[startIdxInOrder:endIdxInOrder])
         headIdx = 0
         for i in range(startIdxInOrder,endIdxInOrder):
             if(inOrderList[i]==tree.value):
                 headIdx = i
                 break
-        print('head idx:',headIdx)
+        print('found head at idx:',headIdx)
             
         # set left node: next head is next in preOrder, end of inOrder=current head idx
-        tree.left = helperRestore(startIdxPreOrder+1,startIdxInOrder,headIdx-1,\
+        tree.left = helperRestore(startIdxPreOrder+1,startIdxInOrder,headIdx,\
                                   inOrderList,preOrderList)
         
 
@@ -64,7 +67,7 @@ def restoreBinaryTree(inorder, preorder):
     # initial values
     startIdxPreOrder = 0
     startIdxInOrder = 0
-    endIdxInOrder = len(inOrder)
+    endIdxInOrder = len(inorder)
     inOrderList = inorder
     preOrderList = preorder
     
@@ -77,14 +80,7 @@ def restoreBinaryTree(inorder, preorder):
     
     return tree
 
-#%% Test
-    
-inOrder = [0,5,10,7,15,20]
-preOrder = [10,5,0,7,15,20]
-
-tree = restoreBinaryTree(inOrder, preOrder)
-
-
-
-
-
+#%% 
+inOrderList = [0,5,7,10,15,20]
+preOrderList = [10,5,0,7,15,20]
+tree = restoreBinaryTree(inOrderList, preOrderList)
