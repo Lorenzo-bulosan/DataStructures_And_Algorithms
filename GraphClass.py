@@ -26,23 +26,59 @@ class Graph():
     def addEdge_undirected(self, vertex1: str, vertex2: str) -> str:
         ''' method that adds an edge/link between two vertices both ways
         '''
+        # validate both inputs
+        if(not self.validateInput(vertex1,str)): return 'Invalid Input'
+        if(not self.validateInput(vertex2,str)): return 'Invalid Input'
+        
+        # check if vertex/nodes exist
+        try:
+            self.adjacencyList[vertex1] and self.adjacencyList[vertex2]
+            return ''
+        except:
+            self.adjacencyList[vertex]=[]
+        
         return vertex1 + ' undirected conection to ' + vertex2
         
     def validateInput(self, inputToValidate, typeToValidate) -> bool:
-        ''' method that validates input to a given type
+        ''' method that validates input to a given type or isEmpty
             In: all inputToValidate 
                 all typeToValidate 
             Out: bool validInput
         '''
+        # empty input handling
+        if(not inputToValidate or not typeToValidate):
+            return False
+        
+        # type validation
         validInput = isinstance(inputToValidate,typeToValidate)
         if(not validInput): return False
+        
         return True
         
+    def checkVertex(self, vertex: str) -> bool:
+        ''' method that validates if vertex exist in graph
+            In: str vertex 
+            Out: bool validInput
+        '''
+        # check input
+        if(self.validateInput(vertex,str)): return False
         
+        # try calling for key, throws error if key does not exist
+        try:
+            self.adjacencyList[vertex]
+            return True
         
-    
+        except:
+            return False
+            
+        
 #%% Testing methods
-testGraph = Graph()
-testGraph.addVertex('testKey')
+
+
+    
+    
+    
+
+    
 
 
