@@ -129,8 +129,33 @@ class Graph():
                 self.adjacencyList[vertex2].remove(vertex1)
                 break
             
-        
         return '"'+vertex1+'"' + ' no longer connected to ' + '"'+vertex2+'"'
+        
+    def removeVertex(self,vertex: str)->str:
+        ''' method that removes a vertex and all conections to it from a graph
+            In: str vertex to be removed
+            Out: str result
+        '''
+        
+        # input validation
+        if(not self.__validateInput(vertex,str)): return 'Invalid Input'
+        
+        # check vertex exist
+        if(not self.__checkVertex(vertex)): return 'vertex not in graph'
+        
+        # remove links in other nodes that point to this vertex
+        for key in self.adjacencyList:
+            for value in self.adjacencyList[key]:
+                if(value==vertex):
+                    self.adjacencyList[key].remove(value)
+                    
+                break
+            
+        # remove vertex itself from graph
+        self.adjacencyList.pop(vertex)    # del self.adjacencyList[vertex]
+        
+        
+        return 'removed'+vertex+'from graph'
         
 #%% Testing methods
 
@@ -150,6 +175,10 @@ test.addEdge_undirected('a','b')
     
 # test remove edges
 test.removeEdgeBetween('a','c') 
+
+# test removing a node from the graph
+test.removeVertex('a')
+
 
     
 
