@@ -156,20 +156,6 @@ class Graph():
             In: None
             Out: str[] visited nodes
         '''
-        def vertexExistInList(vertex: str, lookUp: dict) -> bool:
-            ''' method to check if a vertex exist on a list
-                In: str vertex in question
-                    dict lookUp table
-                Out: bool returns false if does not exist
-            '''
-            # throws error if doesn't exist
-            try:
-                lookUp[vertex]
-                return True
-            
-            except:
-                return False
-        
         def helperDFS(startingVertex: str) -> None:
             ''' recursive helper method to traverse DFS
                 In: str vertex
@@ -181,19 +167,18 @@ class Graph():
                         
             # add vertex to results list
             resultsList.append(startingVertex)
-            print('added to results list:', startingVertex)
             
             # mark as visited
-            visitedNodes[startingVertex] = 1
+            visitedNodes[startingVertex] = True
             
             # traverse into current neighbours if not visited
             for neighbour in self.adjacencyList[startingVertex]:
-                print(neighbour)
-                if(not vertexExistInList(neighbour,visitedNodes[startingVertex])):
-                    return helperDFS(neighbour)
+                if(not neighbour in visitedNodes):
+                    helperDFS(neighbour)
                 
+            # if nothing to visit return None
             return None
-            
+                
         # check if list is empty
         if(not len(self.adjacencyList)>0): return False
         
@@ -203,7 +188,7 @@ class Graph():
             break
         
         visitedNodes = {}
-        resultsList =[0]
+        resultsList =[]
         
         # call helper function
         helperDFS(startingVertex)
@@ -217,10 +202,15 @@ test = Graph()
 test.addVertex('a')
 test.addVertex('b')
 test.addVertex('c')
+test.addVertex('d')
+test.addVertex('e')
 
 # add edge between 'a' and 'b' 
 test.addEdge_undirected('a','b')
 test.addEdge_undirected('a','c')
+test.addEdge_undirected('b','c')
+test.addEdge_undirected('c','d')
+test.addEdge_undirected('e','a')
 
 # test to handle already existing link
 test.addEdge_undirected('a','b')
