@@ -40,6 +40,9 @@ class Graph():
     
     def hasEdgeBetween(self, vertex1: str, vertex2: str) -> bool:
         ''' method that checks weather vertex 1 has an edge to vertex 2
+            In: str vertex1
+                str vertex2
+            Out: bool
         '''
         # input type validation
         if(not self.__validateInput(vertex1,str)): return False
@@ -74,6 +77,9 @@ class Graph():
     
     def addEdge_undirected(self, vertex1: str, vertex2: str) -> str:
         ''' method that adds an edge/link between two vertices both ways
+            In: str vertex1
+                str vertex2
+            Out: str result
         '''
         # validate both inputs
         if(not self.__validateInput(vertex1,str)): return 'Invalid Input'
@@ -93,27 +99,57 @@ class Graph():
         
         return '"'+vertex1+'"' + ' undirected conection to ' + '"'+vertex2+'"'
         
+    def removeEdgeBetween(self,vertex1: str, vertex2: str) -> str:
+        ''' method that removes link between given vertices
+            In: str vertex1
+                str vertex2
+            Out: str result
+        '''
+
+        # validate both inputs
+        if(not self.__validateInput(vertex1,str)): return 'Invalid Input'
+        if(not self.__validateInput(vertex2,str)): return 'Invalid Input'
+        
+        # check if vertex/nodes exist
+        if(not self.__checkVertex(vertex1)): return 'vertex1 not in graph'
+        if(not self.__checkVertex(vertex2)): return 'vertex2 not in graph'
+
+        # check if not connected 
+        if(not self.hasEdgeBetween(vertex1,vertex2) and not self.hasEdgeBetween(vertex2,vertex1)):
+            return 'no edge between these two vertexes'
+        
+        # access all edges of vertex1 and remove vertex2
+        for i in self.adjacencyList[vertex1]:
+            if(i==vertex2):
+                self.adjacencyList[vertex1].remove(vertex2)
+                break
+        # access all edges of vertex2 and remove vertex1
+        for j in self.adjacencyList[vertex2]:
+            if(j==vertex1):
+                self.adjacencyList[vertex2].remove(vertex1)
+                break
             
+        
+        return '"'+vertex1+'"' + ' no longer connected to ' + '"'+vertex2+'"'
         
 #%% Testing methods
 
 test = Graph()
 
-#add nodes
+# add nodes
 test.addVertex('a')
 test.addVertex('b')
 test.addVertex('c')
 
-#add edge between 'a' and 'b' 
+# add edge between 'a' and 'b' 
 test.addEdge_undirected('a','b')
 test.addEdge_undirected('a','c')
 
-for i in test.adjacencyList['a']:
-    print(i)
+# test to handle already existing link
+test.addEdge_undirected('a','b')
     
-    
-    
-    
+# test remove edges
+test.removeEdgeBetween('a','c') 
 
     
 
