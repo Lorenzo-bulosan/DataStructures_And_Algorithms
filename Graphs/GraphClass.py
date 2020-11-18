@@ -105,7 +105,6 @@ class Graph():
                 str vertex2
             Out: str result
         '''
-
         # validate both inputs
         if(not self.__validateInput(vertex1,str)): return 'Invalid Input'
         if(not self.__validateInput(vertex2,str)): return 'Invalid Input'
@@ -123,6 +122,7 @@ class Graph():
             if(i==vertex2):
                 self.adjacencyList[vertex1].remove(vertex2)
                 break
+            
         # access all edges of vertex2 and remove vertex1
         for j in self.adjacencyList[vertex2]:
             if(j==vertex1):
@@ -131,32 +131,84 @@ class Graph():
             
         return '"'+vertex1+'"' + ' no longer connected to ' + '"'+vertex2+'"'
         
-    def removeVertex(self,vertex: str)->str:
+    def removeVertex(self,vertex: str) -> str:
         ''' method that removes a vertex and all conections to it from a graph
             In: str vertex to be removed
             Out: str result
         '''
-        
         # input validation
         if(not self.__validateInput(vertex,str)): return 'Invalid Input'
         
         # check vertex exist
         if(not self.__checkVertex(vertex)): return 'vertex not in graph'
-        
+              
         # remove links in other nodes that point to this vertex
         for key in self.adjacencyList:
-            for value in self.adjacencyList[key]:
-                if(value==vertex):
-                    self.adjacencyList[key].remove(value)
-                    
-                break
-            
+            self.removeEdgeBetween(key,vertex)
+       
         # remove vertex itself from graph
-        self.adjacencyList.pop(vertex)    # del self.adjacencyList[vertex]
-        
+        self.adjacencyList.pop(vertex)     
         
         return 'removed'+vertex+'from graph'
+    
+    def traverseDFS(self) -> list :
+        ''' method to traverse the graph using DFS algorythm
+            In: None
+            Out: str[] visited nodes
+        '''
+        def vertexExistInList(vertex: str, lookUp: dict) -> bool:
+            ''' method to check if a vertex exist on a list
+                In: str vertex in question
+                    dict lookUp table
+                Out: bool returns false if does not exist
+            '''
+            # throws error if doesn't exist
+            try:
+                lookUp[vertex]
+                return True
+            
+            except:
+                return False
         
+        def helperDFS(startingVertex: str) -> None:
+            ''' recursive helper method to traverse DFS
+                In: str vertex
+                Out: list resultsList
+            '''
+            # base condition
+            if(startingVertex==None):
+                return None
+                        
+            # add vertex to results list
+            resultsList.append(startingVertex)
+            print('added to results list:', startingVertex)
+            
+            # mark as visited
+            visitedNodes[startingVertex] = 1
+            
+            # traverse into current neighbours if not visited
+            for neighbour in self.adjacencyList[startingVertex]:
+                print(neighbour)
+                if(not vertexExistInList(neighbour,visitedNodes[startingVertex])):
+                    return helperDFS(neighbour)
+                
+            return None
+            
+        # check if list is empty
+        if(not len(self.adjacencyList)>0): return False
+        
+        # set starting vertex as the first key in adjacency list
+        for i in self.adjacencyList:
+            startingVertex = i
+            break
+        
+        visitedNodes = {}
+        resultsList =[0]
+        
+        # call helper function
+        helperDFS(startingVertex)
+        
+        return resultsList
 #%% Testing methods
 
 test = Graph()
@@ -174,12 +226,15 @@ test.addEdge_undirected('a','c')
 test.addEdge_undirected('a','b')
     
 # test remove edges
-test.removeEdgeBetween('a','c') 
+#test.removeEdgeBetween('a','c') 
 
 # test removing a node from the graph
-test.removeVertex('a')
+#print(test.adjacencyList)
+#test.removeVertex('c')
+#print(test.adjacencyList)
 
-
-    
+# test DFS traversal
+allNodes = test.traverseDFS()
+print(allNodes)
 
 
