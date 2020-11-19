@@ -205,10 +205,6 @@ class Graph():
                 In: str starting node
                 Out: None
             '''
-            # add to results and visited nodes if not there
-            if(not startingVertex in visitedNodes): visitedNodes[startingVertex] = True
-            if(not startingVertex in resultsList): resultsList.append(startingVertex)
-            
             # remove from stack 
             neighboursToVisit.pop(0)
             
@@ -240,12 +236,14 @@ class Graph():
         
         # add to stack
         neighboursToVisit.append(startingVertex)
+        resultsList.append(startingVertex)
+        visitedNodes[startingVertex] = True
         
         # call helper function
         helperBFS(startingVertex)
         
         return resultsList
-        
+            
 #%% Testing methods
 
 test = Graph()
