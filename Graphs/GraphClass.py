@@ -171,7 +171,7 @@ class Graph():
             # mark as visited
             visitedNodes[startingVertex] = True
             
-            # traverse into current neighbours if not visited
+            # traverse neighbour depth if not visited
             for neighbour in self.adjacencyList[startingVertex]:
                 if(not neighbour in visitedNodes):
                     helperDFS(neighbour)
@@ -180,7 +180,7 @@ class Graph():
             return None
                 
         # check if list is empty
-        if(not len(self.adjacencyList)>0): return False
+        if(len(self.adjacencyList)==0): return []
         
         # set starting vertex as the first key in adjacency list
         for i in self.adjacencyList:
@@ -188,12 +188,65 @@ class Graph():
             break
         
         visitedNodes = {}
-        resultsList =[]
+        resultsList = []
         
         # call helper function
         helperDFS(startingVertex)
         
         return resultsList
+    
+    def traverseBFS(self) -> list:
+        '''method to traverse a graph using DFS algorythm
+            In: None
+            Out: str[] of vertexes (key)
+        '''
+        def helperBFS(startingVertex: str) -> None:
+            ''' recursive helper method to traverse graph
+                In: str starting node
+                Out: None
+            '''
+            # add to results and visited nodes if not there
+            if(not startingVertex in visitedNodes): visitedNodes[startingVertex] = True
+            if(not startingVertex in resultsList): resultsList.append(startingVertex)
+            
+            # remove from stack 
+            neighboursToVisit.pop(0)
+            
+            # visit all the neighbours first if not visited
+            for neighbour in self.adjacencyList[startingVertex]:
+                
+                if(not neighbour in visitedNodes):
+                    resultsList.append(neighbour)
+                    visitedNodes[neighbour] = True 
+                    neighboursToVisit.append(neighbour)
+                    
+            # base condition
+            if(len(neighboursToVisit)==0): return None
+            
+            helperBFS(neighboursToVisit[0])
+                            
+            return None
+            
+        # check if list is empty
+        if(len(self.adjacencyList)==0): return []
+        
+        visitedNodes = {}
+        neighboursToVisit = []
+        resultsList = []
+        
+        # set starting vertex as the first key in adjacency list
+        for i in self.adjacencyList:
+            startingVertex = i
+            break
+        
+        # add to stack
+        neighboursToVisit.append(startingVertex)
+        
+        # call helper function
+        helperBFS(startingVertex)
+        
+        return resultsList
+        
 #%% Testing methods
 
 test = Graph()
@@ -227,4 +280,7 @@ test.addEdge_undirected('a','b')
 allNodes = test.traverseDFS()
 print(allNodes)
 
+# test BFS
+allNodes = test.traverseBFS()
+print(allNodes)
 
