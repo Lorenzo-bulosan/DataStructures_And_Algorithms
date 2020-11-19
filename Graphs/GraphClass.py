@@ -149,7 +149,7 @@ class Graph():
         # remove vertex itself from graph
         self.adjacencyList.pop(vertex)     
         
-        return 'removed'+vertex+'from graph'
+        return 'removed "'+vertex+'" from graph'
     
     def traverseDFS(self) -> list :
         ''' method to traverse the graph using DFS algorythm
@@ -213,8 +213,7 @@ class Graph():
             neighboursToVisit.pop(0)
             
             # visit all the neighbours first if not visited
-            for neighbour in self.adjacencyList[startingVertex]:
-                
+            for neighbour in self.adjacencyList[startingVertex]:    
                 if(not neighbour in visitedNodes):
                     resultsList.append(neighbour)
                     visitedNodes[neighbour] = True 
@@ -257,30 +256,39 @@ test.addVertex('b')
 test.addVertex('c')
 test.addVertex('d')
 test.addVertex('e')
+test.addVertex('f')
 
 # add edge between 'a' and 'b' 
 test.addEdge_undirected('a','b')
 test.addEdge_undirected('a','c')
-test.addEdge_undirected('b','c')
-test.addEdge_undirected('c','d')
-test.addEdge_undirected('e','a')
+test.addEdge_undirected('b','d')
+test.addEdge_undirected('c','e')
+test.addEdge_undirected('d','e')
+test.addEdge_undirected('d','f')
+test.addEdge_undirected('e','f')
+
+# test DFS traversal
+allNodes = test.traverseDFS()
+correctAnswer = ['a', 'b', 'd', 'e', 'c', 'f']
+print(allNodes)
+if(allNodes == correctAnswer): print('passed')
+
+# test BFS
+allNodes = test.traverseBFS()
+correctAnswer = ['a', 'b', 'c', 'd', 'e', 'f']
+print(allNodes)
+if(allNodes == correctAnswer): print('passed')
 
 # test to handle already existing link
 test.addEdge_undirected('a','b')
     
 # test remove edges
-#test.removeEdgeBetween('a','c') 
+test.removeEdgeBetween('a','c') 
 
 # test removing a node from the graph
-#print(test.adjacencyList)
-#test.removeVertex('c')
-#print(test.adjacencyList)
+print(test.removeVertex('a'))
 
-# test DFS traversal
-allNodes = test.traverseDFS()
-print(allNodes)
+# test removing a node that doesn't exist
+print(test.removeVertex('a'))
 
-# test BFS
-allNodes = test.traverseBFS()
-print(allNodes)
-
+print(test.adjacencyList)
