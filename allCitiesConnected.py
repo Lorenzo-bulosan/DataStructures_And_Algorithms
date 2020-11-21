@@ -1,12 +1,15 @@
-# Do all cities have cycles
+# Do all cities have cycles?
 # input graph represented as matrix of where elements have values 'false' or 'true'
 # has n=rows and m=columns representing all possible connections
 # if matrix[n][m]=True then city 'n' points to city 'm'
 #
 # QUESTION: determine if all cities 'n' have cycles
+# matrixInput = [['false','true','false','false'],
+#                ['false','false','true','false'],
+#                ['true','false','false','true'],
+#                ['false','false','true','false']]
+# answer: True
 #
-#
-
 def areCitiesConnected(roadRegister: list) -> bool:
     ''' method to find if all cities have cycles
         In: bool[][] adjacency matrix of cities
@@ -80,10 +83,24 @@ def areCitiesConnected(roadRegister: list) -> bool:
         print(hasCycle)
         return False
     
-#%% Test
-roadRegister = [['false','true','false','false'],\
+#%% Test 1
+roadRegister1 = [['false','true','false','false'],\
                 ['false','false','true','false'],\
                 ['true','false','false','true'],\
                 ['false','false','true','false']]
 
-areCitiesConnected(roadRegister)
+result1 = areCitiesConnected(roadRegister1)
+
+if result1==True: print('passed')
+else: print('failed')
+
+#%% Test 2
+roadRegister2 = [['false','false','false','false'],\
+                ['false','false','true','false'],\
+                ['true','false','false','true'],\
+                ['false','false','true','false']]
+
+result2 = areCitiesConnected(roadRegister2)
+
+if result2==False: print('passed')
+else: print('failed')
