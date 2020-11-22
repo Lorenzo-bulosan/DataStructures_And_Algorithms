@@ -15,8 +15,9 @@ def hasCycle(adjacencyList: list) -> bool:
         localVisitedNodes[startingNode]=True  
         
         print('starting node:', startingNode)
-        for neighbour in range(len(adjacencyList[startingNode])):
-            
+        for neighbour in adjacencyList[startingNode]:
+                print('checking neighbour:',neighbour,'from node',startingNode)
+                print(localVisitedNodes)
                 # base case
                 if(neighbour in localVisitedNodes): 
                     print('found cycle')
@@ -32,38 +33,41 @@ def hasCycle(adjacencyList: list) -> bool:
                     
                     # backtrack
                     localVisitedNodes.pop(neighbour)
+                    print('deleting neighbour:',neighbour)
                     print(localVisitedNodes)
-   
+            
+        print('returning------------',hasCycle)
         return hasCycle
     
     # init variables
     visitedNodes = {}
     localVisitedNodes = {}
-    startingNode = 0
-    
-    # initialise starting node as first node
-    for i in adjacencyList[0]:
-        startingNode = i
-        break
-    
-    return DFS(startingNode, localVisitedNodes)
+
+    # loop the adjacency list
+    for node in range(len(adjacencyList)):
+        print('NODE======',node)
+        hasCycle = DFS(node, localVisitedNodes)
+        localVisitedNodes.pop(node)
+        if hasCycle: return True
+
+    return hasCycle
 
 #%% Testing
     
-testMatrix =[[1],\
-             [2],\
+testMatrix =[[1,4,3],\
              [],\
-             [1,4],\
-             [2,0]]
+             [1,4,3],\
+             [1],\
+             [3]]
 
 hasCycle(testMatrix)
 
-testMatrix =[[1,2,3],\
-             [2,3],\
-             [3],\
-             []]
-
-hasCycle(testMatrix)
+#testMatrix =[[1,2,3],\
+#             [2,3],\
+#             [3],\
+#             []]
+#
+#print(hasCycle(testMatrix))
 
 
 
