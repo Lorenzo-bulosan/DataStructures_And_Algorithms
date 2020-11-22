@@ -104,3 +104,14 @@ result2 = areCitiesConnected(roadRegister2)
 
 if result2==False: print('passed')
 else: print('failed')
+
+#%% Test 3
+roadRegister3 = [['false','true','true','true','true'],\
+                ['true','false','true','true','true'],\
+                ['true','true','false','true','true'],\
+                ['true','true','true','false','true'],\
+                ['true','true','true','true','false']]
+
+result3 = areCitiesConnected(roadRegister3)
+if(result3 == True): print('passed')
+else: print('failed')
