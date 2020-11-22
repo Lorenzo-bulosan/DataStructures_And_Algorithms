@@ -1,6 +1,6 @@
 # Check if graph has a cycle
 #
-def hasCycle(adjacencyMatrix: list) -> bool:
+def hasCycle(adjacencyList: list) -> bool:
     ''' method to find a cycle in the graph
         In: int[][] graph's adjacency matrix
         Out: bool True if graph has a cycle
@@ -14,9 +14,9 @@ def hasCycle(adjacencyMatrix: list) -> bool:
         hasCycle = False
         localVisitedNodes[startingNode]=True  
         
-        for neighbour in range(len(adjacencyMatrix[startingNode])):
-            if(adjacencyMatrix[startingNode][neighbour]==1):
-
+        print('starting node:', startingNode)
+        for neighbour in range(len(adjacencyList[startingNode])):
+            
                 # base case
                 if(neighbour in localVisitedNodes): 
                     print('found cycle')
@@ -32,6 +32,7 @@ def hasCycle(adjacencyMatrix: list) -> bool:
                     
                     # backtrack
                     localVisitedNodes.pop(neighbour)
+                    print(localVisitedNodes)
    
         return hasCycle
     
@@ -41,7 +42,7 @@ def hasCycle(adjacencyMatrix: list) -> bool:
     startingNode = 0
     
     # initialise starting node as first node
-    for i in adjacencyMatrix[0]:
+    for i in adjacencyList[0]:
         startingNode = i
         break
     
@@ -49,11 +50,18 @@ def hasCycle(adjacencyMatrix: list) -> bool:
 
 #%% Testing
     
-testMatrix =[[0,1,0,1,0],\
-             [0,0,1,0,0],\
-             [0,0,0,0,0],
-             [0,1,0,0,1],
-             [1,0,1,0,0]]
+testMatrix =[[1],\
+             [2],\
+             [],\
+             [1,4],\
+             [2,0]]
+
+hasCycle(testMatrix)
+
+testMatrix =[[1,2,3],\
+             [2,3],\
+             [3],\
+             []]
 
 hasCycle(testMatrix)
 
