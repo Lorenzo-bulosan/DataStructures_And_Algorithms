@@ -14,13 +14,10 @@ def hasCycle(adjacencyList: list) -> bool:
         hasCycle = False
         localVisitedNodes[startingNode]=True  
         
-        print('starting node:', startingNode)
         for neighbour in adjacencyList[startingNode]:
-                print('checking neighbour:',neighbour,'from node',startingNode)
-                print(localVisitedNodes)
+
                 # base case
                 if(neighbour in localVisitedNodes): 
-                    print('found cycle')
                     hasCycle = True
                     break 
                 
@@ -30,44 +27,63 @@ def hasCycle(adjacencyList: list) -> bool:
                     visitedNodes[neighbour] = True
                     out = DFS(neighbour,localVisitedNodes)    
                     if(out): return True
-                    
+
                     # backtrack
-                    localVisitedNodes.pop(neighbour)
-                    print('deleting neighbour:',neighbour)
-                    print(localVisitedNodes)
-            
-        print('returning------------',hasCycle)
+                    localVisitedNodes.pop(neighbour)  
+                    
         return hasCycle
     
     # init variables
     visitedNodes = {}
     localVisitedNodes = {}
-
-    # loop the adjacency list
+    
+    # check for cycle at every node start
     for node in range(len(adjacencyList)):
-        print('NODE======',node)
+        
         hasCycle = DFS(node, localVisitedNodes)
         localVisitedNodes.pop(node)
-        if hasCycle: return True
+        
+        if hasCycle: return True # early stopping
 
     return hasCycle
 
-#%% Testing
-    
+#%% Testing 1 ---------------------------------
+'''Correct answer: False'''
 testMatrix =[[1,4,3],\
              [],\
              [1,4,3],\
              [1],\
              [3]]
 
-hasCycle(testMatrix)
+print('has cycle:',hasCycle(testMatrix))
 
-#testMatrix =[[1,2,3],\
-#             [2,3],\
-#             [3],\
-#             []]
-#
-#print(hasCycle(testMatrix))
+#%% Testing 2 ---------------------------------
+'''Correct answer: False'''
+testMatrix =[[1,2,3],\
+             [2,3],\
+             [3],\
+             []]
+
+print('has cycle:',hasCycle(testMatrix))
+
+#%% Testing 3 ---------------------------------
+'''Correct answer: True'''
+testMatrix =[[], 
+             [0,2], 
+             [4,0], 
+             [0], 
+             [0,3], 
+             [3], 
+             [7], 
+             [5], 
+             [7,6], 
+             [8,11], 
+             [9], 
+             [10]]
+
+print('has cycle:',hasCycle(testMatrix))
+
+
 
 
 
