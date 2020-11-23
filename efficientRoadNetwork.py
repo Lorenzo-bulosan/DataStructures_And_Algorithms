@@ -31,7 +31,7 @@ def areAllNodesWithinKreach(numNodes: int, roads: list) -> bool:
             neighbour = adjacencyList[startingNode][i]
             print('checking neighbour:',neighbour,'from node:',startingNode)
             
-            if(not neighbour in visitedList): 
+            if(not neighbour in visitedList and not neighbour in nodesReach[parentNode]): 
                 stepsTaken += 1
                 print('taking step:',stepsTaken,'and reach',neighbour)
                 
@@ -85,7 +85,9 @@ def areAllNodesWithinKreach(numNodes: int, roads: list) -> bool:
     print('final node reach',nodesReach)
     
     for node in range(len(nodesReach)): 
-        if(len(nodesReach[node])!=numNodes-1): return False
+        if(len(nodesReach[node])!=numNodes-1): 
+            print('node:',node,'doesnt reach all')
+            return False
         
     return True
 
@@ -102,6 +104,65 @@ roads = [[0,4],\
 result = areAllNodesWithinKreach(numNodes, roads)
 print(result)
 
+#%%
+numNodes = 4
+roads = [[3,0], 
+         [3,2], 
+         [2,1], 
+         [0,1], 
+         [2,0]]
+result = areAllNodesWithinKreach(numNodes, roads)
+print(result)
+
+#%% 
+numNodes = 13
+roads = [[11,0], 
+         [6,7], 
+         [2,11], 
+         [2,0], 
+         [10,2], 
+         [7,4], 
+         [5,7], 
+         [8,1], 
+         [8,10], 
+         [12,3], 
+         [2,12], 
+         [5,6], 
+         [8,7], 
+         [0,3], 
+         [3,1], 
+         [0,4], 
+         [0,10], 
+         [6,1], 
+         [7,11], 
+         [9,10], 
+         [10,6], 
+         [3,11], 
+         [8,3], 
+         [12,7], 
+         [12,5], 
+         [4,11], 
+         [3,10], 
+         [1,4], 
+         [5,1], 
+         [3,9], 
+         [8,6], 
+         [1,12], 
+         [8,2], 
+         [0,6], 
+         [5,8], 
+         [8,12], 
+         [12,4], 
+         [1,7], 
+         [5,3], 
+         [7,3], 
+         [11,9], 
+         [10,1], 
+         [4,2], 
+         [1,0]]
+
+result = areAllNodesWithinKreach(numNodes, roads)
+print(result)
 
 
 
