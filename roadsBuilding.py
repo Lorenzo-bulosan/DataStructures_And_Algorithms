@@ -46,3 +46,5 @@ def roadsBuilding(cities: int, roads: list) -> list:
                 adjacencyMatrix[neighbour][row] = True
 
     return resultsList
+
+#%%
