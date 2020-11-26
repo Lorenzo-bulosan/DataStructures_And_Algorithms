@@ -21,7 +21,7 @@ def areAllNodesWithinKreach(numNodes: int, roads: list) -> bool:
             print('2 steps, currently in:', startingNode,'--------------')
             return True
         
-        # adds starting node as key in 
+        # adds starting node to visited list look up table
         if(not startingNode in visitedList): visitedList[startingNode] = True
 
         print('visitedList:',visitedList)
