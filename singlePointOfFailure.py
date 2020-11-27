@@ -1,8 +1,8 @@
-# find number of critical edges
+# Find number of critical edges:
+# Given the adjacency matrix of a graph find the number of critical edges
+# Defenition of Critical Edges: edges that if removed results in the graph 
+# being in two or more components or islands
 #
-#
-#
-#%% 
 def singlePointOfFailure(connections: list) -> int:
     ''' method for finding the critical edges
         In: int[][] adjacency matrix of graph
@@ -13,35 +13,31 @@ def singlePointOfFailure(connections: list) -> int:
     matrixTmp = connections[:]
     visitedNodes = {}
     
-    # for every node
+    # for every node remove edge and count number of islands
     for node in range(len(connections)):
         
-        if(not node in visitedNodes): visitedNodes[node] = True
-        
+        if(not node in visitedNodes): 
+            visitedNodes[node] = True
+            
         for neighbour in range(len(connections[node])):
+            
             if(connections[node][neighbour]==1):
+                
                 if(not neighbour in visitedNodes):
                     
-                    visitedNodes[neighbour] = True
-                    
-                    print('removing edge between:',node,neighbour)
                     # remove edge from matrix and check
                     matrixTmp[node][neighbour] = 0
                     matrixTmp[neighbour][node] = 0
                     
                     # if still one component after removing edge then not critical edge
                     numberOfIslands = findNumberOfIslands(matrixTmp)
-                    print('removing:',neighbour,'breaks into',numberOfIslands)
                     
-                    if(numberOfIslands>1): 
-                        print('count this edge')
-                        criticalEdges+=1      
+                    if(numberOfIslands>1): criticalEdges+=1      
                         
                     # reverse the change for next iteration
                     matrixTmp[node][neighbour] = 1
                     matrixTmp[neighbour][node] = 1
                 
-    print(criticalEdges)
     return criticalEdges
 
 def findNumberOfIslands(connections: list) -> int:
@@ -54,11 +50,10 @@ def findNumberOfIslands(connections: list) -> int:
             In: int starting Node
             Out: None
         '''
-        edge = ''
         for neighbour in range(len(connections[startingNode])):
+            
             if(connections[startingNode][neighbour]==1):
-                
-                #edge = str(node)+str(neighbour)
+
                 if(not neighbour in visitedList):
                     visitedList[neighbour] = True
                     dfs(neighbour)
@@ -67,7 +62,7 @@ def findNumberOfIslands(connections: list) -> int:
     visitedList = {}
     numberOfIslands = 0
     
-    # check all nodes but 
+    # if it can be traversed completely then iterations will be only 1 because of visited list
     for node in range(len(connections)):
         if(not node in visitedList):
             numberOfIslands += 1
@@ -86,13 +81,13 @@ testMatrix= [[0,1,1,0,0,0,0],
              [0,0,0,1,1,0,0], 
              [0,0,1,1,0,0,0]]
 
-#findNumberOfIslands(testMatrix)
-#print(testMatrix)
-#singlePointOfFailure(testMatrix)
-#numberOfIslands = findNumberOfIslands(testMatrix)
-#print('number of connected components:',numberOfIslands)
+correctAnswer = 2
+numberOfCriticalEdges = singlePointOfFailure(testMatrix)
 
-
+if(numberOfCriticalEdges == correctAnswer):
+    print('Test 2 Passed')
+else:
+    print('Test 1 Failed')
 
 
 
