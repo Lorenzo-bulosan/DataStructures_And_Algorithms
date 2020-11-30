@@ -24,7 +24,6 @@ class Stack():
         newHead.next = self.head
         self.head = newHead
         self.length += 1
-        
         return self
 
     def pop(self):
@@ -43,8 +42,7 @@ class Stack():
         else:
             self.length -= 1
             elementToReturn = self.head
-            self.head = self.head.next
-            
+            self.head = self.head.next 
             return elementToReturn
     
 #%% Testing the stack push
@@ -64,6 +62,6 @@ print('current length of stack:',stackTest1.length)
 #%% Testing stack pop
 stackTest2 = copy.deepcopy(testStack)
 
-print('pop:',stackTest2.pop().value,', new lenght',stackTest2.length)
-print('pop:',stackTest2.pop().value,', new lenght',stackTest2.length)
+print('pop:',stackTest2.pop().value,', new length',stackTest2.length)
+print('pop:',stackTest2.pop().value,', new length',stackTest2.length)
 
