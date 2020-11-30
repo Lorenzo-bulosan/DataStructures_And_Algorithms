@@ -14,7 +14,6 @@ class Stack():
             In: value of new node to insert
             Out: stack of nodes
         '''
-        
         if(self.length == 0):
             self.length += 1
             self.head = Node(value)
@@ -30,6 +29,8 @@ class Stack():
 
     def pop(self):
         ''' method to remove the first element from stack
+            In: None
+            Out: first node of the stack
         '''
         if(self.length == 0): return None
         
