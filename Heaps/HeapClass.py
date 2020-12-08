@@ -67,35 +67,42 @@ class maxBinaryHeap():
             nodeIndex = parentIndex
     
     def heapifyDown(self, nodeIndex: int):
+        ''' method to move given node to correct position
+            In: int index of node in question
+            Out: None
         '''
-        '''
-        # get node
-        node = self.values[nodeIndex]
-        
-        # get children positions
-        leftNodeIndex = self.__getLeftChildIndex(nodeIndex)
-        rightNodeIndex = self.__getRightChildIndex(nodeIndex)
-        
-        # check if children exists
-        [leftExists, leftNode] = self.__nodeExist(leftNodeIndex)
-        [rightExists, rightNode] = self.__nodeExist(rightNodeIndex)
-        #print('children:',[leftNode, rightNode])
-        
-        # edge case: leaf node
-        if(leftExists==False and rightExists==False):
-            return 0
-        
-        # edge case: only left child exists
-        if(leftExists and rightExists==False):
-            if(leftNode > node):
-                self.values[leftNodeIndex] = node
-                self.values[nodeIndex] = leftNode
-            return
+        while(True):
+            # get node
+            node = self.values[nodeIndex]
             
-        # both children exists
-        elif(leftExists and rightExists):
-            pass
-        
+            # get children positions
+            leftNodeIndex = self.__getLeftChildIndex(nodeIndex)
+            rightNodeIndex = self.__getRightChildIndex(nodeIndex)
+            
+            # check if children exists
+            [leftExists, leftNode] = self.__nodeExist(leftNodeIndex)
+            [rightExists, rightNode] = self.__nodeExist(rightNodeIndex)
+            
+            # edge case: leaf node
+            if(leftExists==False and rightExists==False): return
+            
+            # edge case: only left child exists
+            if(leftExists and rightExists==False):
+                if(leftNode > node):
+                    self.values[leftNodeIndex] = node
+                    self.values[nodeIndex] = leftNode
+                return
+                
+            # both children exists
+            elif(leftExists and rightExists):
+                if(leftNode > rightNode):
+                    self.values[leftNodeIndex] = node
+                    self.values[nodeIndex] = leftNode
+                    nodeIndex = leftNodeIndex
+                else:
+                    self.values[rightNodeIndex] = node
+                    self.values[nodeIndex] = rightNode
+                    nodeIndex = rightNodeIndex
         return
 
     def insertNode(self, node: int):
@@ -149,8 +156,12 @@ class maxBinaryHeap():
         self.values[nodeIndex] = lastNode
         self.values[-1] = node
         
+        # remove nodes and update duplicates list
         valueToReturn = self.values.pop()
+        self.uniqueValues.pop(valueToReturn)
+        self.length -= 1
         
+        # bubble down
         self.heapifyDown(nodeIndex)
         
         return valueToReturn
@@ -158,7 +169,7 @@ class maxBinaryHeap():
 #%% Test insertNode
 print('Testing method: insertNode() --------------')
 
-# adding first element and duplicate
+# testing adding first element and duplicates
 heap = maxBinaryHeap()
 heap.insertNode(1)
 heap.insertNode(1)
@@ -184,14 +195,14 @@ else: print('Test 3: failed')
 #%% Testing removeNode
 print('\nTesting method: removeNode() --------------')
 
-# removing only element
+# testing removing the only element
 heap = maxBinaryHeap()
 heap.insertNode(1)
 largest = heap.removeNode(0)
 if(largest==1 and heap.length==0 and len(heap.uniqueValues)==0): print('Test 1: passed')
 else: print('Test 1: failed')
 
-# removing max in a bigger tree
+# testing removing max in a bigger tree
 heap = maxBinaryHeap()
 for i in [10,3]: 
     heap.insertNode(i)
@@ -204,11 +215,12 @@ else: print('Test 2: failed')
 heap = maxBinaryHeap()
 for i in [10]: 
     heap.insertNode(i)
-
-if(heap.heapifyDown(0) == 0): print('Test 3: passed')
+    
+heap.removeNode(0)
+if(heap.values == []): print('Test 3: passed')
 else: print('Test 3: failed')
 
-# testing heapify down edge cases: only left child and larger than parent
+# testing heapify down edge cases: only left child and LARGER than parent
 heap = maxBinaryHeap()
 for i in [0,7]: 
     heap.insertNode(i)
@@ -217,7 +229,7 @@ heap.heapifyDown(0)
 if(heap.values == [7,0]): print('Test 4: passed')
 else: print('Test 4: failed')
 
-# testing heapify down edge cases: only left child and smaller than parent
+# testing heapify down edge cases: only left child and SMALLER than parent
 heap = maxBinaryHeap()
 for i in [7,0]: 
     heap.insertNode(i)
@@ -226,3 +238,36 @@ heap.heapifyDown(0)
 if(heap.values == [7,0]): print('Test 5: passed')
 else: print('Test 5: failed')
    
+# testing removing max element = root
+heap = maxBinaryHeap()
+for i in [10,5,9,2,3,6,4]: 
+    heap.insertNode(i)
+
+heap.removeNode(0)
+if(heap.values == [9,5,6,2,3,4]): print('Test 6: passed')
+else: print('Test 6: failed')
+
+# testing inserting with negatives and duplicates and big numbers
+heap = maxBinaryHeap()
+for i in [-1,2,8,3000,9,9,9,-5000]: 
+    heap.insertNode(i)
+
+heap.removeNode(0)
+if(heap.values == [9,8,2,-1,-5000]): print('Test 7: passed')
+else: print('Test 7: failed')
+
+# testing correct updates of properties
+heap = maxBinaryHeap()
+for i in [10,5,5,2,3,-1]: 
+    heap.insertNode(i)
+
+heap.removeNode(0)
+heap.removeNode(0)
+if(heap.length == 3 and \
+   heap.uniqueValues == {3:True, 2:True, -1:True}): print('Test 8: passed')
+else: print('Test 8: failed')
+
+
+
+
+
