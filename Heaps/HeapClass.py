@@ -26,32 +26,77 @@ class maxBinaryHeap():
         '''
         return (parentIndex*2)+2
     
-    def peek(self):
+    def __nodeExist(self, nodeIndex: int) -> list:
+        ''' private helper method to find if node exists and return the node
+            In: int index of node in question
+            Out: [bool, int] denoting if exists or not and the node if it exists
         '''
+        try:
+            node = self.values[nodeIndex]
+            return [True, node]
+        
+        except: return [False, None]
+        
+    def peek(self):
+        ''' method to observe the node at the root
+            In: None
+            Out: None
         '''
         return self.values[0]
     
     def heapifyUp(self, node: int, nodeIndex: int):
-        '''
+        ''' method to place the given node to its correct position in the heap
+            In: int node value
+                int index of given node
+            Out: None
         '''
         while(True):
             # compare with parent
             parentIndex = self.__getParentIndex(nodeIndex)
-            print('starting indexes',[nodeIndex,parentIndex])
-            if(parentIndex < 0): return 0
+            if(parentIndex < 0): return
 
             # exit if node in correct position
             parentNode = self.values[parentIndex]
-            print('comparing node-parent',[node,parentNode])
-            if(node < parentNode): return 1
+            if(node < parentNode): return
             
             # exchange position in the heap
             self.values[parentIndex] = node
             self.values[nodeIndex] = parentNode
-            print('after swap',self.values)
             
             # update node
             nodeIndex = parentIndex
+    
+    def heapifyDown(self, nodeIndex: int):
+        '''
+        '''
+        # get node
+        node = self.values[nodeIndex]
+        
+        # get children positions
+        leftNodeIndex = self.__getLeftChildIndex(nodeIndex)
+        rightNodeIndex = self.__getRightChildIndex(nodeIndex)
+        
+        # check if children exists
+        [leftExists, leftNode] = self.__nodeExist(leftNodeIndex)
+        [rightExists, rightNode] = self.__nodeExist(rightNodeIndex)
+        #print('children:',[leftNode, rightNode])
+        
+        # edge case: leaf node
+        if(leftExists==False and rightExists==False):
+            return 0
+        
+        # edge case: only left child exists
+        if(leftExists and rightExists==False):
+            if(leftNode > node):
+                self.values[leftNodeIndex] = node
+                self.values[nodeIndex] = leftNode
+            return
+            
+        # both children exists
+        elif(leftExists and rightExists):
+            pass
+        
+        return
 
     def insertNode(self, node: int):
         ''' method to insert a node in the correct place in the heap
@@ -80,34 +125,104 @@ class maxBinaryHeap():
         self.heapifyUp(node, nodeIndex)
         
         return
+    
+    def removeNode(self, nodeIndex: int) -> int:
+        ''' removes node at given index and reorganizes heap
+            In: int index of node in question
+            Out: int removed node
+        '''
+        # edge case: empty heap
+        if(self.length == 0): return 
+        
+        # edge case: only 1 element
+        if(self.length == 1):
+            valueToRemove = self.values.pop()
+            self.length -= 1
+            self.uniqueValues.pop(valueToRemove)
+            return valueToRemove
+        
+        # get nodes to be swapped
+        node = self.values[nodeIndex]
+        lastNode = self.values[-1]
+        
+        # swap nodes
+        self.values[nodeIndex] = lastNode
+        self.values[-1] = node
+        
+        valueToReturn = self.values.pop()
+        
+        self.heapifyDown(nodeIndex)
+        
+        return valueToReturn
 
 #%% Test insertNode
- 
+print('Testing method: insertNode() --------------')
+
 # adding first element and duplicate
 heap = maxBinaryHeap()
 heap.insertNode(1)
 heap.insertNode(1)
-if(heap.length == 1): print('Test 1 passed')
-else: print('Test 1 failed')
+if(heap.length == 1): print('Test 1: passed')
+else: print('Test 1: failed')
  
 # testing heapifying up 1 level
 heap = maxBinaryHeap()
 heap.insertNode(1)
 heap.insertNode(2)
 heap.insertNode(6)
-if(heap.peek() == 6): print('Test 2 passed')
-else: print('Test 2 failed')
+if(heap.peek() == 6): print('Test 2: passed')
+else: print('Test 2: failed')
  
 # testing heapifying up 3 levels
 heap = maxBinaryHeap()
 for i in [10,1,2,5,7,3]: 
     heap.insertNode(i)
     
-if(heap.peek() == 10): print('Test 3 passed')
-else: print('Test 3 failed')
+if(heap.peek() == 10): print('Test 3: passed')
+else: print('Test 3: failed')
  
- 
- 
- 
- 
+#%% Testing removeNode
+print('\nTesting method: removeNode() --------------')
+
+# removing only element
+heap = maxBinaryHeap()
+heap.insertNode(1)
+largest = heap.removeNode(0)
+if(largest==1 and heap.length==0 and len(heap.uniqueValues)==0): print('Test 1: passed')
+else: print('Test 1: failed')
+
+# removing max in a bigger tree
+heap = maxBinaryHeap()
+for i in [10,3]: 
+    heap.insertNode(i)
+
+removedNode = heap.removeNode(0)
+if(removedNode == 10): print('Test 2: passed')
+else: print('Test 2: failed')
+
+# testing heapify down edge cases: leaf node
+heap = maxBinaryHeap()
+for i in [10]: 
+    heap.insertNode(i)
+
+if(heap.heapifyDown(0) == 0): print('Test 3: passed')
+else: print('Test 3: failed')
+
+# testing heapify down edge cases: only left child and larger than parent
+heap = maxBinaryHeap()
+for i in [0,7]: 
+    heap.insertNode(i)
+
+heap.heapifyDown(0)
+if(heap.values == [7,0]): print('Test 4: passed')
+else: print('Test 4: failed')
+
+# testing heapify down edge cases: only left child and smaller than parent
+heap = maxBinaryHeap()
+for i in [7,0]: 
+    heap.insertNode(i)
+
+heap.heapifyDown(0)
+if(heap.values == [7,0]): print('Test 5: passed')
+else: print('Test 5: failed')
    
