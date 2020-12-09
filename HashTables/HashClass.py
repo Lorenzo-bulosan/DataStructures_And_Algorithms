@@ -2,7 +2,7 @@
 class hashTable():
     
     def __init__(self):
-        self.arrayLengthPrime = 7
+        self.arrayLengthPrime = 7 # larger==better but 7 for easier collision testing
         self.array = [[None] for i in range(self.arrayLengthPrime)]
         self.maxKeyLength = 100
         
@@ -84,6 +84,9 @@ print('Testing insert()----------------------------')
 dictionary = hashTable()
 dictionary.insert('bar',-100)
 dictionary.insert('3',1)
+dictionary.insert('foo',2)
+dictionary.insert('foobar',3)
+dictionary.insert('score',4)
 if(dictionary.array[4] == [['bar', -100], ['3', 1]]): print('Test 1: passed')
 else: print('Test 1: failed')
 
@@ -92,6 +95,7 @@ print('Testing get()-------------------------------')
 
 # testing getting value when there was a collision
 # requires last test to run to fill the array with collisions
-value = dictionary.get('bar')
-if(value == -100): print('Test 1: passed')
+value1 = dictionary.get('bar')
+value2 = dictionary.get('foobar')
+if(value1 == -100 and value2 == 3): print('Test 1: passed')
 else: print('Test 2: failed')
