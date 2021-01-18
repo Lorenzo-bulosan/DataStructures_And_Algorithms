@@ -16,7 +16,9 @@ This class contains the following main methods
 1. DFS
 2. BFS
 
-> Code example
+> Code example:
+> adding undirected edges between two vertices in a graph
+
 ``` python
 def addEdge_undirected(self, vertex1: str, vertex2: str) -> str:
         ''' method that adds an edge/link between two vertices both ways
