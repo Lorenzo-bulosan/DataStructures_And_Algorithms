@@ -1,9 +1,8 @@
+## Update ❗
+I am building another library in C# with .Net core with an actual unit testing framework and more modular. Programers will be able to write their own implementations easily and just switch a single line in order to replace my original solutuion to the same problem, and will be able to run the unit tests with their implementation or mine or even other people's. Stay tuned for that!
 
 # Description
-This repository contains algorithms and data structures in python
-
-## Update ❗
-I am building a similar library in C# with .Net core with an actual unit testing framework and more modular. Programers will be able to write their own implementations easily and just switch a single line in order to replace my original solutuion to the same problem, and will be able to run the unit tests with their implementation or mine or even other people's. Stay tuned for that!
+This repository contains algorithms and data structures in python, and solutions to various problems from codesignal similar/identical to those found in leetcode.
 
 ### Table of contents
 * Graphs class
