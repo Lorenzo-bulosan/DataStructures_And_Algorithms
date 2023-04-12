@@ -29,5 +29,47 @@ class HashmapTests(unittest.TestCase):
         # assert
         self.assertEqual(19, result)
 
+    @unittest.skip("Need to change hash method to always return same value")
+    def test_delete_removesValue_Correctly_WhenCollisionExists_FirstCollision(self):
+        # arrange
+        self.__sut.add('foo', 18)
+
+        # act
+        self.__sut.delete('foo')
+
+        # assert
+        result = self.__sut.get('foo')
+        self.assertEqual(None, result)
+
+    @unittest.skip("Need to change hash method to always return same value")
+    def test_delete_removesValue_Correctly_WhenCollisionExists_MiddleCollision(self):
+        # arrange
+        self.__sut.add('foo1', 18)
+        self.__sut.add('foo2', 19)
+        self.__sut.add('foo3', -100)
+        self.__sut.add('foo4', 1)
+
+        # act
+        self.__sut.delete('foo3')
+
+        # assert
+        result = self.__sut.get('foo3')
+        self.assertEqual(None, result)
+
+    @unittest.skip("Need to change hash method to always return same value")
+    def test_delete_removesValue_Correctly_WhenCollisionExists_LastCollision(self):
+        # arrange
+        self.__sut.add('foo1', 18)
+        self.__sut.add('foo2', 19)
+        self.__sut.add('foo3', -100)
+        self.__sut.add('foo4', 1)
+
+        # act
+        self.__sut.delete('foo4')
+
+        # assert
+        result = self.__sut.get('foo4')
+        self.assertEqual(None, result)
+
 if __name__ == '__main__':
     unittest.main()
