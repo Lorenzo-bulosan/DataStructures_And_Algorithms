@@ -1,5 +1,6 @@
 import unittest
 from Hashmap import Hashmap
+from unittest.mock import MagicMock
 
 
 class HashmapTests(unittest.TestCase):
@@ -17,9 +18,10 @@ class HashmapTests(unittest.TestCase):
         # assert
         self.assertEqual(18, result)
 
-    @unittest.skip("Need to change hash method to always return same value")
     def test_get_should_returnValue_Correctly_WhenCollisionsExists(self):
+
         # arrange
+        self.__sut.hash = MagicMock(return_value=3)
         self.__sut.add('foo 1', 18)
         self.__sut.add('foo 2', 19)
 
@@ -29,9 +31,10 @@ class HashmapTests(unittest.TestCase):
         # assert
         self.assertEqual(19, result)
 
-    @unittest.skip("Need to change hash method to always return same value")
     def test_delete_removesValue_Correctly_WhenCollisionExists_FirstCollision(self):
+
         # arrange
+        self.__sut.hash = MagicMock(return_value=3)
         self.__sut.add('foo', 18)
 
         # act
@@ -41,9 +44,10 @@ class HashmapTests(unittest.TestCase):
         result = self.__sut.get('foo')
         self.assertEqual(None, result)
 
-    @unittest.skip("Need to change hash method to always return same value")
     def test_delete_removesValue_Correctly_WhenCollisionExists_MiddleCollision(self):
+
         # arrange
+        self.__sut.hash = MagicMock(return_value=3)
         self.__sut.add('foo1', 18)
         self.__sut.add('foo2', 19)
         self.__sut.add('foo3', -100)
@@ -56,9 +60,10 @@ class HashmapTests(unittest.TestCase):
         result = self.__sut.get('foo3')
         self.assertEqual(None, result)
 
-    @unittest.skip("Need to change hash method to always return same value")
     def test_delete_removesValue_Correctly_WhenCollisionExists_LastCollision(self):
+
         # arrange
+        self.__sut.hash = MagicMock(return_value=3)
         self.__sut.add('foo1', 18)
         self.__sut.add('foo2', 19)
         self.__sut.add('foo3', -100)
@@ -70,6 +75,7 @@ class HashmapTests(unittest.TestCase):
         # assert
         result = self.__sut.get('foo4')
         self.assertEqual(None, result)
+
 
 if __name__ == '__main__':
     unittest.main()
