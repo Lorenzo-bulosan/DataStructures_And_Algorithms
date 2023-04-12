@@ -14,8 +14,7 @@ class Hashmap:
             hashsum += (idx + len(key)) ** ord(c)  # Add (index + length of key) ^ (current char code)
             hashsum = hashsum % self.capacity  # Perform modulus to keep hashsum in range [0, self.capacity - 1]
 
-        # return hashsum
-        return 10
+        return hashsum
 
     def add(self, key: str, value: int) -> None:
 
