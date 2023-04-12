@@ -14,7 +14,7 @@ class Hashmap:
             hashsum += (idx + len(key)) ** ord(c)  # Add (index + length of key) ^ (current char code)
             hashsum = hashsum % self.capacity  # Perform modulus to keep hashsum in range [0, self.capacity - 1]
 
-        return hashsum # return 10 # to test collisions
+        return hashsum
 
     def add(self, key: str, value: int) -> None:
 
@@ -45,4 +45,41 @@ class Hashmap:
             if currentNode.key == key: break
             currentNode = currentNode.next
 
+        if currentNode is None: return None
         return currentNode.value
+
+    def delete(self, key: str) -> None:
+        hashedKey = self.hash(key)
+        headNode = self.__list[hashedKey]
+
+        # When trying to delete a non-existing key
+        if headNode is None: return
+
+        temp = headNode
+
+        # edge case: head node needs to be deleted
+        if temp is not None and temp.key == key:
+
+            # edge case: linkedlist of only 1 node
+            if headNode.next is None:
+                self.__list[hashedKey] = None
+                return
+
+            headNode = temp.next
+            temp = None
+            return
+
+        # Search for the key to be deleted
+        while temp is not None:
+            if temp.key == key:
+                break
+            prev = temp
+            temp = temp.next
+
+        # if key was not present in linked list
+        if temp == None: return
+
+        # Unlink the node from linked list
+        prev.next = temp.next
+
+        temp = None
