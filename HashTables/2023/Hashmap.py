@@ -27,10 +27,11 @@ class Hashmap:
         if currentNode is None:
             self.__list[hashedKey] = Node(key, value)
         else:
-            prev = currentNode
 
+            # Go to the end of the linkedlist and append, except if it already exist udpate with new node
             while currentNode is not None:
                 prev = currentNode
+                if prev.key == key: break
                 currentNode = currentNode.next
 
             prev.next = Node(key, value)
@@ -39,13 +40,13 @@ class Hashmap:
         hashedKey = self.hash(key)
         currentNode = self.__list[hashedKey]
 
-        if currentNode is None: return None
+        if currentNode is None: raise KeyError('Key not found')
 
         while currentNode is not None:
             if currentNode.key == key: break
             currentNode = currentNode.next
 
-        if currentNode is None: return None
+        if currentNode is None: raise KeyError('Key not found')
         return currentNode.value
 
     def delete(self, key: str) -> None:
