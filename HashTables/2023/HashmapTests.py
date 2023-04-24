@@ -8,6 +8,32 @@ class HashmapTests(unittest.TestCase):
     def setUp(self):
         self.__sut = Hashmap()
 
+    def test_add_insertsValue_Correctly(self):
+        # arrange
+        self.__sut.add('foo', 18)
+
+        # act
+        result = self.__sut.get('foo')
+
+        # assert
+        self.assertEqual(18, result)
+
+    def test_add_updatesValue_Correctly(self):
+        # arrange
+        self.__sut.add('foo', 18)
+        self.__sut.add('foo', 19)
+
+        # act
+        result = self.__sut.get('foo')
+
+        # assert
+        self.assertEqual(19, result)
+
+        # assert
+        self.__sut.add('foo', -100)
+        result = self.__sut.get('foo')
+        self.assertEqual(-100, result)
+
     def test_get_returnsValue_Correctly(self):
         # arrange
         self.__sut.add('foo', 18)
@@ -41,8 +67,8 @@ class HashmapTests(unittest.TestCase):
         self.__sut.delete('foo')
 
         # assert
-        result = self.__sut.get('foo')
-        self.assertEqual(None, result)
+        with self.assertRaises(KeyError) as raises:
+             self.__sut.get('foo')
 
     def test_delete_removesValue_Correctly_WhenCollisionExists_MiddleCollision(self):
 
@@ -57,8 +83,8 @@ class HashmapTests(unittest.TestCase):
         self.__sut.delete('foo3')
 
         # assert
-        result = self.__sut.get('foo3')
-        self.assertEqual(None, result)
+        with self.assertRaises(KeyError) as raises:
+            self.__sut.get('foo3')
 
     def test_delete_removesValue_Correctly_WhenCollisionExists_LastCollision(self):
 
@@ -73,8 +99,8 @@ class HashmapTests(unittest.TestCase):
         self.__sut.delete('foo4')
 
         # assert
-        result = self.__sut.get('foo4')
-        self.assertEqual(None, result)
+        with self.assertRaises(KeyError) as raises:
+            self.__sut.get('foo4')
 
 
 if __name__ == '__main__':
