@@ -17,6 +17,7 @@ class HashmapTests(unittest.TestCase):
 
         # assert
         self.assertEqual(18, result)
+        self.assertEqual(1, self.__sut.count)
 
     def test_add_updatesValue_Correctly(self):
         # arrange
@@ -28,11 +29,13 @@ class HashmapTests(unittest.TestCase):
 
         # assert
         self.assertEqual(19, result)
+        self.assertEqual(1, self.__sut.count)
 
         # assert
         self.__sut.add('foo', -100)
         result = self.__sut.get('foo')
         self.assertEqual(-100, result)
+        self.assertEqual(1, self.__sut.count)
 
     def test_get_returnsValue_Correctly(self):
         # arrange
@@ -56,6 +59,7 @@ class HashmapTests(unittest.TestCase):
 
         # assert
         self.assertEqual(19, result)
+        self.assertEqual(2, self.__sut.count)
 
     def test_delete_removesValue_Correctly_WhenCollisionExists_FirstCollision(self):
 
@@ -67,6 +71,8 @@ class HashmapTests(unittest.TestCase):
         self.__sut.delete('foo')
 
         # assert
+        self.assertEqual(0, self.__sut.count)
+
         with self.assertRaises(KeyError) as raises:
              self.__sut.get('foo')
 
@@ -83,6 +89,8 @@ class HashmapTests(unittest.TestCase):
         self.__sut.delete('foo3')
 
         # assert
+        self.assertEqual(3, self.__sut.count)
+
         with self.assertRaises(KeyError) as raises:
             self.__sut.get('foo3')
 
@@ -99,9 +107,25 @@ class HashmapTests(unittest.TestCase):
         self.__sut.delete('foo4')
 
         # assert
+        self.assertEqual(3, self.__sut.count)
+
         with self.assertRaises(KeyError) as raises:
             self.__sut.get('foo4')
 
+    def test_resizeList_increasesCapacity(self):
+
+        # arrange
+        self.__sut = Hashmap(10)
+
+        # act
+        # should trigger resize
+        numOfKeysToInsert = 9
+        for i in range(numOfKeysToInsert):
+            self.__sut.add(f'Foo{i}', i)
+
+        # assert
+        self.assertEqual(numOfKeysToInsert, self.__sut.count)
+        self.assertEqual(20, self.__sut.getCapacity())
 
 if __name__ == '__main__':
     unittest.main()
